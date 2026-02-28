@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>EDIYA COFFEE - 이디야 커피</title>
     <link rel="stylesheet" href="css/jquery.bxslider.css">
     <link rel="stylesheet" href="css/slick-theme.css">
     <link rel="stylesheet" href="css/slick.css">
@@ -14,6 +14,7 @@
     <script src="js/main.js"></script>
 </head>
 <body>
+    <!-- 상단 헤더 -->
     <div class="header_top cf">
         <ul class="top_left fl">
             <li class="on"><a href="#">브랜드 사이트</a></li>
@@ -41,10 +42,12 @@
             </form>
         </div>
     </div>
-    <div class="header_middle">
+
+    <!-- 메인 헤더 -->
+    <header class="header_middle">
         <div class="middle_top">
             <h1 class="logo">
-                <a href="#"><img src="images/top_logo_240822.gif" alt=""></a>
+                <a href="#"><img src="images/top_logo_240822.gif" alt="EDIYA COFFEE"></a>
             </h1>
             <div class="language">
                 <a href="#">
@@ -52,27 +55,44 @@
                     <span>KO</span>
                 </a>
             </div>
+            <!-- 모바일 햄버거 버튼 -->
+            <button class="mobile-menu-toggle" aria-label="메뉴 열기" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
         </div>
-        <nav>
+
+        <!-- 네비게이션 메뉴 -->
+        <nav class="main-navigation" aria-label="주 메뉴">
             <ul class="gnb">
-                <li>
-                    <a href="#">원두</a>
-                    <ul>
+                <li class="menu-item has-submenu">
+                    <a href="#" class="menu-link">원두</a>
+                    <button class="submenu-toggle" aria-expanded="false" aria-label="원두 서브메뉴 열기">
+                        <span class="icon-arrow"></span>
+                    </button>
+                    <ul class="submenu">
                         <li><a href="#">이디야 블렌드</a></li>
                         <li><a href="#">품질</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="#">메뉴</a>
-                    <ul>
+                <li class="menu-item has-submenu">
+                    <a href="#" class="menu-link">메뉴</a>
+                    <button class="submenu-toggle" aria-expanded="false" aria-label="메뉴 서브메뉴 열기">
+                        <span class="icon-arrow"></span>
+                    </button>
+                    <ul class="submenu">
                         <li><a href="#">음료</a></li>
                         <li><a href="#">푸드</a></li>
                         <li><a href="#">MD</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="#">유통제품</a>
-                    <ul>
+                <li class="menu-item has-submenu">
+                    <a href="#" class="menu-link">유통제품</a>
+                    <button class="submenu-toggle" aria-expanded="false" aria-label="유통제품 서브메뉴 열기">
+                        <span class="icon-arrow"></span>
+                    </button>
+                    <ul class="submenu">
                         <li><a href="#">스틱커피</a></li>
                         <li><a href="#">커피믹스</a></li>
                         <li><a href="#">원두커피</a></li>
@@ -83,33 +103,45 @@
                         <li><a href="#">B2B/특판/대리점 거래</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="#">이디야멤버스</a>
-                    <ul>
+                <li class="menu-item has-submenu">
+                    <a href="#" class="menu-link">이디야멤버스</a>
+                    <button class="submenu-toggle" aria-expanded="false" aria-label="이디야멤버스 서브메뉴 열기">
+                        <span class="icon-arrow"></span>
+                    </button>
+                    <ul class="submenu">
                         <li><a href="#">멤버십안내</a></li>
                         <li><a href="#">서비스안내</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="#">상품권·제휴카드</a>
-                    <ul>
+                <li class="menu-item has-submenu">
+                    <a href="#" class="menu-link">상품권·제휴카드</a>
+                    <button class="submenu-toggle" aria-expanded="false" aria-label="상품권·제휴카드 서브메뉴 열기">
+                        <span class="icon-arrow"></span>
+                    </button>
+                    <ul class="submenu">
                         <li><a href="#">제휴카드(하나·신한)</a></li>
                         <li><a href="#">이디야카드</a></li>
                         <li><a href="#">모바일상품권</a></li>
                         <li><a href="#">단체·기업구매</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="#">브랜드 소식</a>
-                    <ul>
+                <li class="menu-item has-submenu">
+                    <a href="#" class="menu-link">브랜드 소식</a>
+                    <button class="submenu-toggle" aria-expanded="false" aria-label="브랜드 소식 서브메뉴 열기">
+                        <span class="icon-arrow"></span>
+                    </button>
+                    <ul class="submenu">
                         <li><a href="#">공지사항</a></li>
                         <li><a href="#">이벤트 안내</a></li>
                         <li><a href="#">사회공헌 활동</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="#">고객 지원·케이터링</a>
-                    <ul>
+                <li class="menu-item has-submenu">
+                    <a href="#" class="menu-link">고객 지원·케이터링</a>
+                    <button class="submenu-toggle" aria-expanded="false" aria-label="고객 지원·케이터링 서브메뉴 열기">
+                        <span class="icon-arrow"></span>
+                    </button>
+                    <ul class="submenu">
                         <li><a href="#">고객의 소리</a></li>
                         <li><a href="#">소비자중심경영(CCM)</a></li>
                         <li><a href="#">제휴·제안</a></li>
@@ -119,8 +151,10 @@
             </ul>
             <div class="shadow"></div>
         </nav>
-    </div>
-    <div class="main">
+    </header>
+
+    <!-- 메인 콘텐츠 -->
+    <main class="main">
         <section class="section1">
             <ul class="bxslider">
                 <li><a href="#"><img src="images/IMG_1767926487849.jpg" alt=""></a></li>
@@ -249,7 +283,6 @@
                 <span>메뉴보기</span>
             </p>
         </section>
-        <!-- 숙제 -->
         <section class="section6">
             <div class="company_wrap">
                 <div class="company_align">
@@ -309,7 +342,7 @@
                 </div>
             </div>
         </section>
-    </div>
+    </main>
     <footer>
         <ul class="bottom_util">
             <li><a href="#">영상정보처리기기 운영·관리방침</a></li>

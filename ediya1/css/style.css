@@ -1,6 +1,17 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 ul {
@@ -31,8 +42,7 @@ a {
     position: relative;
     width: 100%;
     height: 50px;
-    background-color: #243C84;
-    /* color: #fff; */
+    background-color: #003f8c;
     font-size: 13px;
     z-index: 100;
 }
@@ -63,7 +73,7 @@ a {
 
 .top_left li.on a {
     background: #fff;
-    color: #1D326C;
+    color: #003f8c;
     font-weight: bold;
 }
 
@@ -143,6 +153,7 @@ a {
     height: 120px;
     position: relative;
     z-index: 101;
+    background-color: #fff;
 }
 
 .middle_top {
@@ -185,83 +196,192 @@ a {
     float: left;
 }
 
-nav {
+/* ============================================
+   햄버거 버튼 (모바일)
+   ============================================ */
+.mobile-menu-toggle {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    pointer-events: auto;
+}
+
+.mobile-menu-toggle:focus {
+    outline: 2px solid #003f8c;
+    outline-offset: 2px;
+}
+
+/* PC에서는 숨김 */
+@media (min-width: 1025px) {
+    .mobile-menu-toggle {
+        display: none;
+    }
+}
+
+.hamburger-line {
+    width: 28px;
+    height: 3px;
+    background-color: #003f8c;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-toggle.active .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+
+.mobile-menu-toggle.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-toggle.active .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(8px, -8px);
+}
+
+/* ============================================
+   PC 네비게이션 (기본)
+   ============================================ */
+.main-navigation {
     width: 100%;
     height: 50px;
     position: relative;
 }
 
-nav > ul {
+.main-navigation > .gnb {
     position: relative;
     z-index: 101;
     width: 1200px;
     margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-nav > ul > li {
+.main-navigation .gnb > .menu-item {
     position: relative;
-    float: left;
-    width: 14.7%;
+    flex: 1;
+    text-align: center;
 }
 
-nav > ul > li:nth-child(2) {
-    width: 10%;
+.main-navigation .gnb > .menu-item:nth-child(2) {
+    flex: 0.7;
 }
 
-nav ul li a {
-    display: inline-block;
-    height: 30px;
-    line-height: 30px;
-    padding: 0 5px;
-    font-size: 13px;
-} 
-
-nav > ul > li > a {
+.main-navigation .menu-link {
+    display: block;
     font-size: 15px;
     font-weight: bold;
     height: 50px;
     line-height: 50px;
     position: relative;
-    width: auto;
+    color: #333;
+    transition: color 0.3s ease;
 }
 
-nav > ul > li > a::after {
+.main-navigation .menu-link::after {
     content: '';
     position: absolute;
     left: 0;
     bottom: 8px;
     width: 100%;
     height: 3px;
-    background-color: #202023;
+    background-color: #003f8c;
     transform: scale(0, 1);
-    transition: all 0.3s;
+    transition: transform 0.3s ease;
     z-index: 400;
 }
 
-nav > ul > li:hover > a::after {
+/* PC 호버 효과 - 드롭다운 페이드/슬라이드 */
+.main-navigation .menu-item:hover .menu-link {
+    color: #003f8c;
+}
+
+.main-navigation .menu-item:hover .menu-link::after {
     transform: scale(1, 1);
 }
 
-nav ul ul {
+/* 서브메뉴 토글 버튼 (모바일용, PC에서는 숨김) */
+.submenu-toggle {
+    display: none;
     position: absolute;
-    height: 0;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10;
+}
+
+.icon-arrow {
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-right: 2px solid #003f8c;
+    border-bottom: 2px solid #003f8c;
+    transform: rotate(45deg);
+    transition: transform 0.3s ease;
+    margin: 0 auto;
+}
+
+.submenu-toggle[aria-expanded="true"] .icon-arrow {
+    transform: rotate(225deg);
+}
+
+/* 서브메뉴 (PC) */
+.main-navigation .submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
     width: 100%;
-    overflow: hidden;
-    transition: all 0.3s;
+    background-color: #fff;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px 0;
 }
 
-nav ul:hover ul {
-    height: 250px;
+.main-navigation .menu-item:hover .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
-nav ul li ul li a {
+.main-navigation .submenu li {
+    padding: 0;
+}
+
+.main-navigation .submenu li a {
+    display: block;
+    padding: 10px 20px;
     color: #666;
-    transition: all 0.3s;
+    font-size: 14px;
+    transition: all 0.3s ease;
 }
 
-nav ul li ul li a:hover {
-    color: #202023;
+.main-navigation .submenu li a:hover {
+    color: #003f8c;
     font-weight: bold;
+    background-color: #f5f5f5;
 }
 
 .shadow {
@@ -273,16 +393,185 @@ nav ul li ul li a:hover {
     transition: all 0.3s;
 }
 
-nav ul:hover + .shadow {
+.main-navigation .gnb:hover + .shadow {
     height: 255px;
-    background-color: #fff;
+}
+
+
+/* ============================================
+   모바일 네비게이션 (미디어 쿼리)
+   ============================================ */
+@media (max-width: 1024px) {
+    /* 햄버거 버튼 표시 (이미 기본값으로 flex) */
+
+    /* 상단 헤더 숨김 */
+    .header_top {
+        display: none;
+    }
+
+    /* PC 네비게이션 숨김 */
+    .main-navigation {
+        position: fixed;
+        top: 120px;
+        right: -100%;
+        width: 80%;
+        max-width: 400px;
+        height: calc(100vh - 120px);
+        background-color: #fff;
+        z-index: 999;
+        transition: right 0.3s ease;
+        overflow-y: auto;
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .main-navigation.active {
+        right: 0;
+    }
+
+    /* 모바일 메뉴 리스트 */
+    .main-navigation > .gnb {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 20px 0;
+    }
+
+    .main-navigation .gnb > .menu-item {
+        width: 100%;
+        border-bottom: 1px solid #e5e5e5;
+        text-align: left;
+    }
+
+    .main-navigation .menu-link {
+        padding: 15px 20px;
+        height: auto;
+        line-height: 1.5;
+        font-size: 16px;
+        color: #333;
+    }
+
+    .main-navigation .menu-link::after {
+        display: none;
+    }
+
+    /* 서브메뉴 토글 버튼 표시 */
+    .submenu-toggle {
+        display: block;
+    }
+
+    /* 모바일 서브메뉴 (아코디언) */
+    .main-navigation .submenu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        box-shadow: none;
+        background-color: #f8f8f8;
+        padding: 0;
+    }
+
+    .main-navigation .menu-item.active .submenu {
+        max-height: 1000px;
+    }
+
+    .main-navigation .submenu li a {
+        padding: 12px 20px 12px 40px;
+        font-size: 15px;
+        color: #666;
+    }
+
+    .main-navigation .submenu li a:hover {
+        background-color: #e8e8e8;
+    }
+
+    .shadow {
+        display: none;
+    }
+
+    /* 상단 헤더 모바일 조정 */
+    .header_top {
+        font-size: 11px;
+    }
+
+    .top_left li a,
+    .lnb li a {
+        padding: 0 8px;
+    }
+
+    #ediyaSearchForm {
+        width: 120px;
+        margin-right: 10px;
+    }
+
+    #ediyaSearch {
+        width: 90px;
+        font-size: 11px;
+    }
+
+    .middle_top .language {
+        right: 70px;
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .header_top {
+        height: auto;
+        min-height: 50px;
+        padding: 5px 0;
+    }
+
+    .top_left,
+    .top_right {
+        width: 100%;
+        float: none;
+    }
+
+    .top_left li,
+    .top_right li {
+        float: left;
+    }
+
+    .top_left li a,
+    .lnb li a {
+        padding: 0 8px;
+        font-size: 10px;
+        height: 40px;
+        line-height: 40px;
+    }
+
+    .top_sns {
+        padding-top: 10px;
+        margin-right: 5px;
+    }
+
+    #ediyaSearchForm {
+        width: 100px;
+        height: 28px;
+        margin-top: 6px;
+    }
+
+    #ediyaSearch {
+        width: 70px;
+        font-size: 10px;
+    }
+
+    .main-navigation {
+        width: 85%;
+        top: 120px;
+        height: calc(100vh - 120px);
+    }
 }
 
 .main {
     width: 100%;
     max-width: 1920px;
-    min-width: 1280px;
+    min-width: 320px;
     position: relative;
+    flex: 1;
 }
 
 /* DIRECTION CONTROLS (NEXT / PREV) */
@@ -337,7 +626,7 @@ nav ul:hover + .shadow {
 .section1 .bx-wrapper .bx-pager.bx-default-pager a:hover,
 .section1 .bx-wrapper .bx-pager.bx-default-pager a.active,
 .section1 .bx-wrapper .bx-pager.bx-default-pager a:focus {
-    background: #243C84;
+    background: #003f8c;
 }
 
 .section2 {
@@ -348,7 +637,8 @@ nav ul:hover + .shadow {
 
 /* video : inline-block 요소  => 중앙정렬된 이유: text-align : center */
 .section2 video {
-    width: 1180px;
+    width: 100%;
+    max-width: 1180px;
     height: auto;
     border-radius: 30px;
 }
@@ -391,10 +681,13 @@ nav ul:hover + .shadow {
     justify-content: center;
     gap: 30px;
     text-align: center;
+    flex-wrap: nowrap;
 }
 
 .slide > ul > li > img {
     display: inline-block;
+    max-width: 100%;
+    height: auto;
 }
 
 .slide > ul > li > dl {
@@ -405,6 +698,12 @@ nav ul:hover + .shadow {
     font-size: 20px;
     font-weight: bold;
     color: #693a13;
+}
+
+.slide > ul > li > dl > dd {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
 }
 
 /* dot 위치 */
@@ -446,15 +745,19 @@ nav ul:hover + .shadow {
 }
 
 .section4 .factory_con {
-    width: 1118px;
+    width: 100%;
+    max-width: 1118px;
     margin: 0 auto;
+    padding: 0 20px;
 }
 
 .section4 h2 {
     text-indent: -9999px;
-    width: 1036px;
+    width: 100%;
+    max-width: 1036px;
     height: 87px;
-    background: url(../images/dream_factory_txt.webp);
+    background: url(../images/dream_factory_txt.webp) no-repeat center;
+    background-size: contain;
 }
 
 .section4 h3 {
@@ -486,12 +789,14 @@ nav ul:hover + .shadow {
 
 .factory_img {
     position: absolute;
-    width: 1063px;
+    width: 100%;
+    max-width: 1063px;
     height: 349px;
     top: 100px;
     right: 0;
     background: url(../images/dream_factory.webp) no-repeat;
     background-position: 150px 0;
+    background-size: contain;
 }
 
 .section5 {
@@ -557,16 +862,19 @@ nav ul:hover + .shadow {
 
 .section6 .company_wrap {
     margin: 0 auto;
-    width: 1180px;
+    width: 100%;
+    max-width: 1180px;
     height: 100%;
     position: relative;
+    padding: 0 20px;
 }
 
 .section6 .company_align {
-    width: 598px;
+    width: 100%;
+    max-width: 598px;
     height: 406px;
     position: absolute;
-    right: 0;
+    right: 20px;
     color: #fff;
 }
 
@@ -605,16 +913,20 @@ nav ul:hover + .shadow {
 .section7 {
     width: 100%;
     padding: 80px 0;
-    height: 330px;
+    height: 450px;
     position: relative;
     color: #fff;
+    z-index: 2;
 }
 
 .container {
-    width: 1180px;
+    width: 100%;
+    max-width: 1180px;
     margin: 0 auto;
     display: flex;
     gap: 10px;
+    padding: 0 20px;
+    flex-wrap: wrap;
 }
 
 .container > div {
@@ -623,6 +935,7 @@ nav ul:hover + .shadow {
 
 .main_franchise {
     flex: 1;
+    min-width: 300px;
     box-sizing: border-box;
     padding: 40px;
     color: #fff;
@@ -652,6 +965,7 @@ nav ul:hover + .shadow {
 
 .main_store {
     flex: 1;
+    min-width: 300px;
     box-sizing: border-box;
     padding: 40px;
     color: #fff;
@@ -694,6 +1008,7 @@ nav ul:hover + .shadow {
 
 .main_right {
     flex: 1.5;
+    min-width: 300px;
     position: relative;
 }
 
@@ -746,10 +1061,14 @@ nav ul:hover + .shadow {
 footer {
     position: relative;
     width: 100%;
-    height: 258px;
+    height: auto;
+    min-height: 258px;
     background-color: #262626;
     color: #464646;
     font-weight: bold;
+    margin-top: auto;
+    z-index: 1;
+    order: 999;
 }
 
 footer .bottom_util {
@@ -762,6 +1081,7 @@ footer ul.bottom_util {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 footer .bottom_util li {
@@ -781,12 +1101,14 @@ footer .bottom_util li a.em {
 footer .bottom_ccm {
     position: absolute;
     top: 60px;
-    width: 1180px;
+    width: 100%;
+    max-width: 1180px;
     left: 50%;
     transform: translateX(-50%);
     height: 130px;
     text-align: right;
     margin-top: 30px;
+    padding: 0 20px;
 }
 
 /* .bottom_ccm span {
@@ -819,6 +1141,7 @@ footer .copy_info {
     font-size: 12px;
     color: #6c6c6c;
     text-align: center;
+    padding: 0 20px;
 }
 
 footer .copy_info span {
@@ -838,4 +1161,279 @@ footer .copy {
     font-weight: 700;
     color: #6c6c6c;
     text-align: center;
+}
+
+/* 모바일 반응형 추가 */
+@media (max-width: 768px) {
+    .section2 {
+        padding: 60px 0;
+    }
+
+    .section3 {
+        padding: 60px 5% 30px;
+        height: auto;
+        min-height: 500px;
+    }
+
+    .section3 h2 {
+        font-size: 28px;
+    }
+
+    /* Slick Slider 태블릿 반응형 - 4개 모두 보이도록 */
+    .slide > ul {
+        gap: 10px;
+        flex-wrap: nowrap;
+        justify-content: center;
+    }
+
+    .slide > ul > li {
+        flex: 1 1 auto;
+        min-width: 0;
+        max-width: none;
+    }
+
+    .slide > ul > li > img {
+        width: 100%;
+        max-width: 140px;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .slide > ul > li > dl {
+        padding-top: 10px;
+    }
+
+    .slide > ul > li > dl > dt {
+        font-size: 14px;
+        line-height: 1.3;
+    }
+
+    .slide > ul > li > dl > dd {
+        font-size: 10px;
+        line-height: 1.2;
+        margin-top: 3px;
+    }
+
+    .section4 {
+        padding-top: 40px;
+        height: auto;
+        min-height: 400px;
+        text-align: center;
+    }
+
+    .section4 .factory_con {
+        text-align: center;
+    }
+
+    .section4 h3 {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .section4 .text1 {
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .section4 .text2 {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .section4 .text2 span {
+        font-size: 14px;
+        padding: 8px 30px;
+        margin: 0;
+        display: block;
+        width: auto;
+    }
+
+    .section4 .factory_img {
+        position: static;
+        width: 100%;
+        max-width: 100%;
+        height: 200px;
+        margin: 20px auto 0;
+        background-position: center;
+    }
+
+    .section5 {
+        text-align: center;
+    }
+
+    .section5 h2 {
+        font-size: 28px;
+        text-align: center;
+    }
+
+    .section5 .text1 {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .section5 .text2 {
+        text-align: center;
+    }
+
+    .section6 {
+        text-align: center;
+    }
+
+    .section6 .company_wrap {
+        text-align: center;
+    }
+
+    .section6 .company_align {
+        position: static;
+        width: 100%;
+        height: auto;
+        padding: 20px;
+        right: auto;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .section6 .company_align h2 {
+        font-size: 28px;
+        text-align: center;
+    }
+
+    .section6 .company_align p.text1 {
+        text-align: center;
+    }
+
+    .section6 .company_align .text2 {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .section6 .text2 span {
+        margin: 0;
+        display: block;
+    }
+
+    .section7 {
+        text-align: center;
+        height: auto;
+        min-height: auto;
+        padding: 40px 0;
+    }
+
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .container > div {
+        height: auto;
+        min-height: 250px;
+        text-align: center;
+    }
+
+    .main_franchise {
+        text-align: center;
+    }
+
+    .main_franchise h2::after,
+    .main_store h2::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .main_store {
+        text-align: center;
+    }
+
+    .main_store form {
+        margin: 0 auto;
+        max-width: 320px;
+    }
+
+    .main_store input {
+        margin: 0 auto;
+    }
+
+    .main_store a {
+        position: absolute;
+        right: 0;
+    }
+
+    .main_right {
+        text-align: center;
+    }
+
+    .main_right_t {
+        text-align: center;
+    }
+
+    .main_right_t .more {
+        position: static;
+        display: inline-block;
+        margin-top: 10px;
+    }
+
+    .main_right_t ul li {
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 0;
+    }
+
+    .main_right_b {
+        position: static;
+        text-align: center;
+    }
+
+    /* Slick Slider 모바일 반응형 - 4개 모두 보이도록 */
+    .slide > ul {
+        gap: 5px;
+        flex-wrap: nowrap;
+        justify-content: center;
+    }
+
+    .slide > ul > li {
+        flex: 1 1 auto;
+        min-width: 0;
+        max-width: none;
+    }
+
+    .slide > ul > li > img {
+        width: 100%;
+        max-width: 80px;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .slide > ul > li > dl {
+        padding-top: 5px;
+    }
+
+    .slide > ul > li > dl > dt {
+        font-size: 10px;
+        line-height: 1.2;
+    }
+
+    .slide > ul > li > dl > dd {
+        font-size: 8px;
+        line-height: 1.1;
+        margin-top: 2px;
+    }
+
+    .slick-dots {
+        bottom: -25px;
+    }
+
+    .slick-dots li button {
+        width: 8px;
+        height: 8px;
+    }
 }
