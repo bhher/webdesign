@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>반응형 네비게이션 문제 - EDIYA COFFEE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: '나눔고딕', 'Nanum Gothic', sans-serif;
+            color: #333;
+        }
+
+        /* 상단 헤더 */
+        .header_top {
+            position: relative;
+            width: 100%;
+            height: 50px;
+            background-color: #003f8c;
+            font-size: 13px;
+            z-index: 100;
+        }
+
+        .header_top a {
+            color: #fff;
+        }
+
+        .cf::after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        /* 메인 헤더 */
+        .header_middle {
+            width: 100%;
+            height: 120px;
+            position: relative;
+            z-index: 101;
+            background-color: #fff;
+        }
+
+        .middle_top {
+            width: 100%;
+            height: 70px;
+            position: relative;
+        }
+
+        .middle_top .logo {
+            position: absolute;
+            width: 202px;
+            height: 22px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .logo img {
+            display: block;
+            width: 100%;
+        }
+
+        /* ============================================
+           문제 1: 햄버거 버튼이 PC에서도 보입니다.
+           PC 화면(1025px 이상)에서는 숨겨야 합니다.
+           ============================================ */
+        .mobile-menu-toggle {
+            display: flex;
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            padding: 0;
+        }
+
+        .hamburger-line {
+            width: 28px;
+            height: 3px;
+            background-color: #003f8c;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* ============================================
+           문제 2: PC 네비게이션이 모바일에서도 보입니다.
+           모바일 화면(1024px 이하)에서는 숨기고,
+           사이드 메뉴로 전환해야 합니다.
+           ============================================ */
+        .main-navigation {
+            width: 100%;
+            height: 50px;
+            position: relative;
+        }
+
+        .main-navigation > .gnb {
+            position: relative;
+            z-index: 101;
+            width: 1200px;
+            margin: 0 auto;
+        }
+
+        .main-navigation .gnb > .menu-item {
+            position: relative;
+            float: left;
+            width: 14.7%;
+        }
+
+        .main-navigation .menu-link {
+            display: inline-block;
+            font-size: 15px;
+            font-weight: bold;
+            height: 50px;
+            line-height: 50px;
+            position: relative;
+            width: auto;
+            padding: 0 5px;
+            color: #333;
+            transition: all 0.3s;
+        }
+
+        /* 서브메뉴 토글 버튼 */
+        .submenu-toggle {
+            display: none;
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 10;
+        }
+
+        .icon-arrow {
+            display: block;
+            width: 12px;
+            height: 12px;
+            border-right: 2px solid #003f8c;
+            border-bottom: 2px solid #003f8c;
+            transform: rotate(45deg);
+            transition: transform 0.3s ease;
+            margin: 0 auto;
+        }
+
+        /* 서브메뉴 */
+        .main-navigation .submenu {
+            position: absolute;
+            height: 0;
+            width: 100%;
+            overflow: hidden;
+            transition: all 0.3s;
+            background-color: #fff;
+        }
+
+        .main-navigation .gnb:hover .submenu {
+            height: 250px;
+        }
+
+        .main-navigation .submenu li {
+            padding: 0;
+        }
+
+        .main-navigation .submenu li a {
+            display: inline-block;
+            height: 30px;
+            line-height: 30px;
+            padding: 0 5px;
+            color: #666;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+
+        .main-navigation .submenu li a:hover {
+            color: #202023;
+            font-weight: bold;
+        }
+
+        /* ============================================
+           문제 3: 모바일 반응형 스타일이 누락되었습니다.
+           아래 미디어 쿼리를 완성하여 모바일 네비게이션을 구현하세요.
+           ============================================ */
+        @media (max-width: 1024px) {
+            /* TODO: 모바일 메뉴 스타일 작성 */
+            /* 
+            요구사항:
+            1. 햄버거 버튼 표시
+            2. 네비게이션을 오른쪽에서 슬라이드되는 사이드 메뉴로 변경
+            3. 서브메뉴는 아코디언 형태로 동작
+            4. 메뉴 항목들이 세로로 배치
+            */
+        }
+
+        /* 테스트용 콘텐츠 */
+        .content {
+            padding: 50px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .content h1 {
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 상단 헤더 -->
+    <div class="header_top cf">
+        <ul class="top_left fl">
+            <li class="on"><a href="#">브랜드 사이트</a></li>
+            <li><a href="#">기업 사이트</a></li>
+            <li><a href="#">창업안내</a></li>
+            <li><a href="#">채용안내</a></li>
+        </ul>
+    </div>
+
+    <!-- 메인 헤더 -->
+    <header class="header_middle">
+        <div class="middle_top">
+            <h1 class="logo">
+                <a href="#"><img src="https://via.placeholder.com/202x22/003f8c/ffffff?text=EDIYA+COFFEE" alt="EDIYA COFFEE"></a>
+            </h1>
+            
+            <!-- 모바일 햄버거 버튼 -->
+            <button class="mobile-menu-toggle" aria-label="메뉴 열기" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+
+        <!-- 네비게이션 메뉴 -->
+        <nav class="main-navigation" aria-label="주 메뉴">
+            <ul class="gnb">
+                <li class="menu-item has-submenu">
+                    <a href="#" class="menu-link">원두</a>
+                    <button class="submenu-toggle" aria-expanded="false" aria-label="원두 서브메뉴 열기">
+                        <span class="icon-arrow"></span>
+                    </button>
+                    <ul class="submenu">
+                        <li><a href="#">이디야 블렌드</a></li>
+                        <li><a href="#">품질</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a href="#" class="menu-link">메뉴</a>
+                    <button class="submenu-toggle" aria-expanded="false" aria-label="메뉴 서브메뉴 열기">
+                        <span class="icon-arrow"></span>
+                    </button>
+                    <ul class="submenu">
+                        <li><a href="#">음료</a></li>
+                        <li><a href="#">푸드</a></li>
+                        <li><a href="#">MD</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a href="#" class="menu-link">유통제품</a>
+                    <button class="submenu-toggle" aria-expanded="false" aria-label="유통제품 서브메뉴 열기">
+                        <span class="icon-arrow"></span>
+                    </button>
+                    <ul class="submenu">
+                        <li><a href="#">스틱커피</a></li>
+                        <li><a href="#">커피믹스</a></li>
+                        <li><a href="#">원두커피</a></li>
+                        <li><a href="#">RTD 커피</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a href="#" class="menu-link">이디야멤버스</a>
+                    <button class="submenu-toggle" aria-expanded="false" aria-label="이디야멤버스 서브메뉴 열기">
+                        <span class="icon-arrow"></span>
+                    </button>
+                    <ul class="submenu">
+                        <li><a href="#">멤버십안내</a></li>
+                        <li><a href="#">서비스안내</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a href="#" class="menu-link">상품권·제휴카드</a>
+                    <button class="submenu-toggle" aria-expanded="false" aria-label="상품권·제휴카드 서브메뉴 열기">
+                        <span class="icon-arrow"></span>
+                    </button>
+                    <ul class="submenu">
+                        <li><a href="#">제휴카드(하나·신한)</a></li>
+                        <li><a href="#">이디야카드</a></li>
+                        <li><a href="#">모바일상품권</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a href="#" class="menu-link">브랜드 소식</a>
+                    <button class="submenu-toggle" aria-expanded="false" aria-label="브랜드 소식 서브메뉴 열기">
+                        <span class="icon-arrow"></span>
+                    </button>
+                    <ul class="submenu">
+                        <li><a href="#">공지사항</a></li>
+                        <li><a href="#">이벤트 안내</a></li>
+                        <li><a href="#">사회공헌 활동</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 테스트용 콘텐츠 -->
+    <div class="content">
+        <h1>반응형 네비게이션 문제 해결</h1>
+        <p>이 페이지는 반응형 네비게이션 구현 연습을 위한 문제입니다.</p>
+        
+        <h2>문제 목록:</h2>
+        <ol>
+            <li><strong>문제 1:</strong> 햄버거 버튼이 PC 화면에서도 보입니다. PC 화면(1025px 이상)에서는 숨겨야 합니다.</li>
+            <li><strong>문제 2:</strong> PC 네비게이션이 모바일에서도 보입니다. 모바일 화면(1024px 이하)에서는 사이드 메뉴로 전환해야 합니다.</li>
+            <li><strong>문제 3:</strong> 모바일 반응형 스타일이 누락되었습니다. 미디어 쿼리를 완성하여 모바일 네비게이션을 구현하세요.</li>
+            <li><strong>문제 4:</strong> JavaScript 기능이 없습니다. 햄버거 버튼 클릭 시 메뉴가 열리고 닫히는 기능을 구현하세요.</li>
+        </ol>
+
+        <h2>요구사항:</h2>
+        <ul>
+            <li>PC 화면(1025px 이상): 가로 네비게이션 메뉴 표시, 햄버거 버튼 숨김</li>
+            <li>모바일 화면(1024px 이하): 햄버거 버튼 표시, 사이드 메뉴(오른쪽에서 슬라이드)</li>
+            <li>서브메뉴는 아코디언 형태로 동작 (클릭 시 열림/닫힘)</li>
+            <li>메뉴 열림 시 배경 스크롤 방지</li>
+            <li>ESC 키로 메뉴 닫기</li>
+        </ul>
+
+        <h2>테스트 방법:</h2>
+        <p>브라우저 개발자 도구(F12)를 열고 디바이스 모드로 전환하여 다양한 화면 크기에서 테스트하세요.</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // ============================================
+        // 문제 4: JavaScript 기능 구현
+        // ============================================
+        // TODO: 다음 기능들을 구현하세요:
+        // 1. 햄버거 버튼 클릭 시 메뉴 열기/닫기
+        // 2. 서브메뉴 토글 버튼 클릭 시 아코디언 동작
+        // 3. ESC 키로 메뉴 닫기
+        // 4. 메뉴 열림 시 body 스크롤 방지
+        // 5. 윈도우 리사이즈 시 PC 사이즈로 변경되면 메뉴 자동 닫기
+
+        $(document).ready(function(){
+            // 여기에 코드를 작성하세요
+            
+        });
+    </script>
+</body>
+</html>
